@@ -9,12 +9,16 @@ public:
 
 	void OnUpdate() override
 	{
-		//CADIE_CLIENT_INFO("ExampleLayer::Update");
+
 	}
 
-	void OnEvent(CADie::Event& e) override
+	void OnEvent(CADie::Event& event) override
 	{
-		CADIE_CLIENT_TRACE("{0}", e);
+		if (event.GetEventType() == CADie::EventType::KeyPressed)
+		{
+			CADie::KeyPressedEvent& e = (CADie::KeyPressedEvent&)event;
+			CADIE_CORE_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
