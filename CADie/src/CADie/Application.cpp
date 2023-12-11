@@ -3,6 +3,7 @@
 
 #include "CADie/Events/ApplicationEvent.h"
 #include "CADie/Log.h"
+#include "CADie/Input.h"
 
 #include "GLAD/glad.h"
 
@@ -65,6 +66,9 @@ namespace CADie {
 			{
 				layer->OnUpdate();
 			}
+
+			auto [x, y] = Input::GetMousePosition();
+			CADIE_CORE_TRACE("{0} {1}", x, y);
 
 			m_Window->OnUpdate(); //glfw polls for events and fires the callback function/method Application::OnEvent
 		}
