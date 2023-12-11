@@ -7,8 +7,6 @@ Intermediates/
 *.log
 *.ini
 
-CADie/external/
-
 # Visual Studio files and folder
 .vs/
 *.vcxproj
