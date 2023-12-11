@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "CADie/external/GLFW/include"
 IncludeDir["GLAD"] = "CADie/external/GLAD/include"
 IncludeDir["ImGui"] = "CADie/external/imgui"
+IncludeDir["glm"] = "CADie/external/glm"
 
 group "Dependencies"
 	include "CADie/external/GLFW"
@@ -46,7 +47,8 @@ project "CADie"
 		"%{prj.name}/external/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -106,7 +108,8 @@ project "Sandbox"
 	includedirs
 	{
 		"CADie/external/spdlog/include",
-		"CADie/src"
+		"CADie/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links

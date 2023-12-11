@@ -7,3 +7,6 @@
 [submodule "CADie/external/imgui"]
 	path = CADie/external/imgui
 	url = https://github.com/hpetrov29/imgui.git
+[submodule "CADie/external/glm"]
+	path = CADie/external/glm
+	url = https://github.com/g-truc/glm
