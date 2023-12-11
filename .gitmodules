@@ -1,0 +1,9 @@
+[submodule "CADie/external/spdlog"]
+	path = CADie/external/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "CADie/external/GLFW"]
+	path = CADie/external/GLFW
+	url = https://github.com/hpetrov29/glfw
+[submodule "CADie/external/imgui"]
+	path = CADie/external/imgui
+	url = https://github.com/hpetrov29/imgui.git

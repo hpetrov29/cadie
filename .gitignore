@@ -1,0 +1,17 @@
+# Binaries
+**/bin/
+bin-int/
+Intermediates/
+
+# log files
+*.log
+*.ini
+
+CADie/external/
+
+# Visual Studio files and folder
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.csproj
