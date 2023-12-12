@@ -4,6 +4,8 @@
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
 
+#include "CADie/ImGui/ImGuiLayer.h"
+
 namespace CADie {
 
 	class CADIE_API Application
@@ -25,6 +27,7 @@ namespace CADie {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

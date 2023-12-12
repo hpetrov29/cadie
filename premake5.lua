@@ -109,6 +109,7 @@ project "Sandbox"
 	{
 		"CADie/external/spdlog/include",
 		"CADie/src",
+		"CADie/external",
 		"%{IncludeDir.glm}"
 	}
 

@@ -45,8 +45,7 @@ class Sandbox : public CADie::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
-		PushOverlay(new CADie::ImGuiLayer());
+		//PushLayer(new ExampleLayer());
 	};
 	~Sandbox()
 	{
