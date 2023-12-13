@@ -1,4 +1,7 @@
 #include "pch.h"
+#include "CADie/Log.h"
+
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace CADie {
 
