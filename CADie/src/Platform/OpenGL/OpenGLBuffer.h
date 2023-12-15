@@ -10,10 +10,14 @@ namespace CADie {
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		 void Bind() const;
-		 void Unbind() const;
+		void Bind() const override;
+		void Unbind() const override;
+
+		void SetLayout(const BufferLayout& layout) override;
+		const BufferLayout& GetLayout() const override;
 	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 	// -----------------------------------------------------
 
@@ -24,10 +28,10 @@ namespace CADie {
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
-		virtual uint32_t GetCount() const { return m_Count; };
+		uint32_t GetCount() const override { return m_Count; };
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		void Bind() const override;
+		void Unbind() const override;
 	private:
 		uint32_t m_RendererID;
 		uint32_t m_Count;

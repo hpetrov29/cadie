@@ -13,6 +13,26 @@ namespace CADie {
 
 	Application* Application::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case CADie::ShaderDataType::Float:		return GL_FLOAT;
+			case CADie::ShaderDataType::Float2:		return GL_FLOAT;
+			case CADie::ShaderDataType::Float3:		return GL_FLOAT;
+			case CADie::ShaderDataType::Float4:		return GL_FLOAT;
+			case CADie::ShaderDataType::Mat3:		return GL_FLOAT;
+			case CADie::ShaderDataType::Mat4:		return GL_FLOAT;
+			case CADie::ShaderDataType::Int:		return GL_INT;
+			case CADie::ShaderDataType::Int2:		return GL_INT;
+			case CADie::ShaderDataType::Int3:		return GL_INT;
+			case CADie::ShaderDataType::Int4:		return GL_INT;
+			case CADie::ShaderDataType::Bool:		return GL_BOOL;
+		}
+		CADIE_CORE_ASSERT(false, "Uknown shader data type");
+		return 0;
+	}
+
 	Application::Application()
 	{
 		s_Instance = this;
@@ -28,24 +48,44 @@ namespace CADie {
 		glBindVertexArray(m_VertexArray);
 
 		//DATA
-		float vertices[3 * 8] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.5f, 0.5f, 0.0f,
-			-0.5f, 0.5f, 0.0f
-			- 0.5f, -0.5f, 0.5f,
-			0.5f, -0.5f, 0.5f,
-			0.5f, 0.5f, 0.5f,
-			-0.5f, 0.5f, 0.5f
+		float vertices[3 * 8 + 4 * 8] = {
+			-0.5f, -0.5f, 0.0f, 0.2f, 0.9f, 0.9f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.9f, 0.9f, 1.0f,
+			 0.5f,  0.5f, 0.0f, 0.2f, 0.9f, 0.9f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.2f, 0.9f, 0.9f, 1.0f,
+			-0.5f, -0.5f, 0.5f, 0.2f, 0.9f, 0.9f, 1.0f,
+			 0.5f, -0.5f, 0.5f, 0.2f, 0.9f, 0.9f, 1.0f,
+			 0.5f,  0.5f, 0.5f, 0.2f, 0.9f, 0.9f, 1.0f,
+			-0.5f,  0.5f, 0.5f, 0.2f, 0.9f, 0.9f, 1.0f
 		};
 
 		//CREATING THE VERTEX BUFFER
 		m_VertexBuffer.reset(new OpenGLVertexBuffer(vertices, sizeof(vertices)));
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), nullptr);
+		//SETTING UP THE LAYOUT + ATTRIB ARRAY
+		{
+			BufferLayout layout = {
+				{ShaderDataType::Float3, "a_Position"},
+				{ShaderDataType::Float4, "a_Color"}
+			};
+			SetLayout(m_VertexBuffer, layout);
+		}
+
+		const auto& layout = GetLayout(m_VertexBuffer);
+		uint32_t index = 0;
+		for (const auto& attribute : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, 
+							      attribute.GetComponentCount(), 
+								  ShaderDataTypeToOpenGLBaseType(attribute.Type), 
+								  attribute.Normalized ? GL_TRUE : GL_FALSE, 
+								  layout.GetStride(),
+								  (const void*)attribute.Offset);
+			index++;
+		}
 		
-		//CREATING THE INDEX BUFFER
+		//CREATING THE INDEX BUFFER (CUBE)
 		uint32_t indices[36] = { 0, 1, 2, 0, 2, 3, 1, 2, 6, 1, 5, 6, 0, 1, 4, 1, 5, 4, 3, 7, 2, 2, 6, 7, 0, 3, 7, 0, 4, 7, 4, 5, 7, 5, 6, 7 };
 		m_IndexBuffer.reset(new OpenGLIndexBuffer(indices, 36));
 
@@ -54,13 +94,16 @@ namespace CADie {
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 			
 			void main() 
 			{
 				v_Position = a_Position;
 				gl_Position = vec4(a_Position, 1.0);
+				v_Color = a_Color;
 			}
 		)";
 
@@ -70,10 +113,10 @@ namespace CADie {
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
-			
+			in vec4 v_Color;
 			void main() 
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 

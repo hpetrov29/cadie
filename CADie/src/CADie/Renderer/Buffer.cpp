@@ -5,6 +5,7 @@
 
 namespace CADie {
 
+	// ---------------- Vertex Buffer Service -----------------
 	void Bind(std::unique_ptr<VertexBuffer>& vb)
 	{
 		vb->Bind();
@@ -15,6 +16,18 @@ namespace CADie {
 		vb->Unbind();
 	}
 
+	void SetLayout(std::unique_ptr<VertexBuffer>& vb, const BufferLayout& layout)
+	{
+		vb->SetLayout(layout);
+	}
+
+	const BufferLayout& GetLayout(std::unique_ptr<VertexBuffer>& vb)
+	{
+		return vb->GetLayout();
+	}
+	// -------------------------------------------------------
+
+	// ---------------- Index Buffer Service -----------------
 	void Bind(std::unique_ptr<IndexBuffer>& ib)
 	{
 		ib->Bind();
@@ -24,9 +37,11 @@ namespace CADie {
 	{
 		ib->Unbind();
 	}
+
 	uint32_t GetCount(std::unique_ptr<IndexBuffer>& vb)
 	{
 		uint32_t count = vb->GetCount();
 		return count;
 	}
+	// -------------------------------------------------------
 }
