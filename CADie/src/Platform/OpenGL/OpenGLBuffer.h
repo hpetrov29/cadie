@@ -10,12 +10,11 @@ namespace CADie {
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		 void Bind() const;
+		 void Unbind() const;
 	private:
 		uint32_t m_RendererID;
 	};
-
 	// -----------------------------------------------------
 
 	// ---------------- Index Buffer Class -----------------
@@ -33,7 +32,6 @@ namespace CADie {
 		uint32_t m_RendererID;
 		uint32_t m_Count;
 	};
-
 	// -----------------------------------------------------
 
 }

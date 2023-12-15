@@ -28,7 +28,6 @@ namespace CADie {
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-
 	// -----------------------------------------------------
 
 	// ---------------- Index Buffer Class -----------------
@@ -37,7 +36,6 @@ namespace CADie {
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
-
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
@@ -54,7 +52,6 @@ namespace CADie {
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-
 	// -----------------------------------------------------
 
 }

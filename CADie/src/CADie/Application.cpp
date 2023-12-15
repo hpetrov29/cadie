@@ -5,6 +5,8 @@
 #include "CADie/Log.h"
 #include "CADie/Input.h"
 
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
 #include "GLAD/glad.h"
 
 namespace CADie {
@@ -38,14 +40,14 @@ namespace CADie {
 		};
 
 		//CREATING THE VERTEX BUFFER
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VertexBuffer.reset(new OpenGLVertexBuffer(vertices, sizeof(vertices)));
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), nullptr);
 		
 		//CREATING THE INDEX BUFFER
 		uint32_t indices[36] = { 0, 1, 2, 0, 2, 3, 1, 2, 6, 1, 5, 6, 0, 1, 4, 1, 5, 4, 3, 7, 2, 2, 6, 7, 0, 3, 7, 0, 4, 7, 4, 5, 7, 5, 6, 7 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, 36));
+		m_IndexBuffer.reset(new OpenGLIndexBuffer(indices, 36));
 
 		//CREATING THE SHADER
 		std::string vertexSrc = R"(
@@ -77,8 +79,8 @@ namespace CADie {
 
 		m_Shader.reset(new Shader(vertexSrc, shaderSrc));
 
-		m_VertexBuffer->Unbind();
-		m_IndexBuffer->Unbind();
+		Unbind(m_VertexBuffer);
+		Unbind(m_IndexBuffer);
 	}
 
 	Application::~Application()
@@ -124,13 +126,13 @@ namespace CADie {
 			glClearColor(0.f, 0.f, 0.f, 1.00f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_VertexBuffer->Bind();
-			m_IndexBuffer->Bind();
+			Bind(m_VertexBuffer);
+			Bind(m_IndexBuffer);
 
 			m_Shader->Bind();
 
 			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, GetCount(m_IndexBuffer), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 			{

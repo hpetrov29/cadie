@@ -10,10 +10,10 @@ namespace CADie {
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-
-		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
 
+	void Bind(std::unique_ptr<VertexBuffer>& vb);
+	void Unbind(std::unique_ptr<VertexBuffer>& vb);
 	// -----------------------------------------------------
 
 	// ---------------- Index Buffer Class -----------------
@@ -26,10 +26,11 @@ namespace CADie {
 		virtual void Unbind() const = 0;
 
 		virtual uint32_t GetCount() const = 0;
-
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 	};
 
+	void Bind(std::unique_ptr<IndexBuffer>& vb);
+	void Unbind(std::unique_ptr<IndexBuffer>& vb);
+	uint32_t GetCount(std::unique_ptr<IndexBuffer>& vb);
 	// -----------------------------------------------------
 
 }

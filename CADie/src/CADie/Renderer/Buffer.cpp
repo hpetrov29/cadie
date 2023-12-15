@@ -3,28 +3,30 @@
 
 #include "Renderer.h"
 
-#include "Platform/OpenGL/OpenGLBuffer.h"
-
 namespace CADie {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	void Bind(std::unique_ptr<VertexBuffer>& vb)
 	{
-		switch (Renderer::GetAPI())
-		{
-			case RendererAPI::None: return nullptr;	
-			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
-		}
-		return nullptr;
+		vb->Bind();
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	void Unbind(std::unique_ptr<VertexBuffer>& vb)
 	{
-		switch (Renderer::GetAPI())
-		{
-			case RendererAPI::None: return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
-		}
-		return nullptr;
+		vb->Unbind();
 	}
 
+	void Bind(std::unique_ptr<IndexBuffer>& ib)
+	{
+		ib->Bind();
+	}
+
+	void Unbind(std::unique_ptr<IndexBuffer>& ib)
+	{
+		ib->Unbind();
+	}
+	uint32_t GetCount(std::unique_ptr<IndexBuffer>& vb)
+	{
+		uint32_t count = vb->GetCount();
+		return count;
+	}
 }
