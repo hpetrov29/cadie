@@ -68,7 +68,8 @@ project "CADie"
 			"CADIE_BUILD_DLL",
 			"CADIE_PLATFORM_WINDOWS",
 			"_CRT_SECURE_NO_WARNINGS",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING"
 		}
 
 	filter "configurations:Debug"
@@ -120,7 +121,8 @@ project "Sandbox"
 
 		defines
 		{
-			"CADIE_PLATFORM_WINDOWS"
+			"CADIE_PLATFORM_WINDOWS",
+			"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING"
 		}
 
 	filter "configurations:Debug"

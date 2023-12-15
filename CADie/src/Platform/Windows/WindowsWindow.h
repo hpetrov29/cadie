@@ -2,8 +2,9 @@
 
 #include "CADie/Window.h"
 
-
 #include <GLFW/glfw3.h>
+
+#include "CADie/Renderer/GraphicsContext.h"
 
 namespace CADie {
 	
@@ -28,6 +29,7 @@ namespace CADie {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 		
 		struct WindowData
 		{

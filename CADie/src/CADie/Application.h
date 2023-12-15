@@ -4,6 +4,8 @@
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
 
+#include "CADie/Renderer/Shader.h"
+
 #include "CADie/ImGui/ImGuiLayer.h"
 
 namespace CADie {
@@ -30,6 +32,11 @@ namespace CADie {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+
+		std::unique_ptr<Shader> m_Shader;
+
 	private:
 		static Application* s_Instance;
 	};
