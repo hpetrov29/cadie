@@ -12,13 +12,12 @@
 #define CADIE_CORE_WARN(...) ::CADie::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define CADIE_CORE_ERROR(...) ::CADie::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define CADIE_CORE_FATAL(...) ::CADie::Log::GetCoreLogger()->critical(__VA_ARGS__)
-//#define CADIE_CORE_ASSERT(...) ::CADie::Log::GetCoreLogger()->error(__VA_ARGS__)
 
-#define CADIE_CLIENT_TRACE(...) ::CADie::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define CADIE_CLIENT_INFO(...) ::CADie::Log::GetClientLogger()->info(__VA_ARGS__)
-#define CADIE_CLIENT_WARN(...) ::CADie::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define CADIE_CLIENT_ERROR(...) ::CADie::Log::GetClientLogger()->error(__VA_ARGS__)
-#define CADIE_CLIENT_FATAL(...) ::CADie::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define CADIE_TRACE(...) ::CADie::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define CADIE_INFO(...) ::CADie::Log::GetClientLogger()->info(__VA_ARGS__)
+#define CADIE_WARN(...) ::CADie::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define CADIE_ERROR(...) ::CADie::Log::GetClientLogger()->error(__VA_ARGS__)
+#define CADIE_FATAL(...) ::CADie::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 namespace CADie {
 

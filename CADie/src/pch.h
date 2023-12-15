@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "CADie/Log.h"
+#include "CADie/Core.h"
 
 
 #ifdef CADIE_PLATFORM_WINDOWS
